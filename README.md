@@ -96,3 +96,7 @@ python-conventions/
 ## License
 
 MIT © wfj6ccff
+
+## 维护
+
+发版流程、版本号决策、cookbook、故障排除见 [MAINTENANCE.md](./MAINTENANCE.md)。
