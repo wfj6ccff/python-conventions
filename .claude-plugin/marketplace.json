@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "wfj6ccff",
+  "description": "wfj6ccff 的个人 Claude Code plugin marketplace",
+  "owner": {
+    "name": "wfj6ccff",
+    "email": ""
+  },
+  "plugins": [
+    {
+      "name": "python-conventions",
+      "source": "./",
+      "description": "个人 Python 开发偏好：栈选择、LLM/API/数据/Worker/CLI 规范",
+      "version": "0.1.0",
+      "author": {
+        "name": "wfj6ccff",
+        "url": "https://github.com/wfj6ccff"
+      },
+      "homepage": "https://github.com/wfj6ccff/python-conventions",
+      "repository": "https://github.com/wfj6ccff/python-conventions",
+      "license": "MIT",
+      "keywords": [
+        "python",
+        "conventions",
+        "fastapi",
+        "sqlalchemy",
+        "instructor",
+        "milvus",
+        "qwen3",
+        "polars",
+        "stamina",
+        "loguru",
+        "pydantic",
+        "uv",
+        "llm",
+        "rag"
+      ],
+      "category": "language-conventions",
+      "tags": ["python", "llm", "fastapi", "rag"]
+    }
+  ]
+}

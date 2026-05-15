@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "python-conventions",
+  "version": "0.1.0",
+  "description": "个人 Python 开发偏好：栈选择、LLM/API/数据/Worker/CLI 规范。基于 Perplexity 风格路由：6 个自包含 skill，按用户意图条件加载。",
+  "author": {
+    "name": "wfj6ccff",
+    "url": "https://github.com/wfj6ccff"
+  },
+  "homepage": "https://github.com/wfj6ccff/python-conventions",
+  "repository": "https://github.com/wfj6ccff/python-conventions",
+  "license": "MIT",
+  "keywords": [
+    "python",
+    "conventions",
+    "fastapi",
+    "sqlalchemy",
+    "instructor",
+    "milvus",
+    "qwen3",
+    "polars",
+    "stamina",
+    "loguru",
+    "pydantic",
+    "uv",
+    "llm",
+    "rag"
+  ]
+}
