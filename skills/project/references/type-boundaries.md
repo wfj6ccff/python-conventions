@@ -6,3 +6,20 @@
 - 关键字段避免过度依赖隐式类型转换。
 - 不强制所有临时变量标注类型。
 - 不强制 mypy/pyright；生产服务建议启用，但按项目实际决定。
+
+## Keyword-only 参数
+
+公开函数 ≥ 2 个参数时，用 `*` 强制 keyword-only：
+
+```python
+def run_search(
+    *,
+    query: str,
+    runtime: AppRuntime,
+    debug: bool = False,
+) -> SearchResponse: ...
+```
+
+调用点必须写参数名；参数顺序不再是契约，加字段不破坏调用方。
+
+例外：单参数函数、明显的转换函数（如 `parse(text)`）和 dunder 方法不需要。

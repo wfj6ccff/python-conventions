@@ -22,7 +22,8 @@ LLM 项目的第三方包白名单。
 
 ## 重试
 
-- 全栈统一 `stamina`；不要散落 `tenacity` 装饰器。
+- 默认 fail fast；instructor 已内置 schema 重试，外层不要叠加完整重试链。
+- 确需兜底瞬态错误时统一 `stamina`，不要散落 `tenacity` 装饰器。
 - 默认参数：attempts=3、wait_initial=1s、wait_max=10s、wait_jitter=1s、timeout=30s。
 - 不重试鉴权失败、参数错误、内容过滤、解析错误。
 

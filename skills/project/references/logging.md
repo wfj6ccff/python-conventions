@@ -23,6 +23,27 @@
 
 使用 `logger.bind(...)` 或 `logger.contextualize(...)` 注入，不拼字符串。
 
+## 阶段耗时日志（pipeline）
+
+多阶段 pipeline 在**每个阶段边界**打一条日志：开始可省，结束必打，记录阶段名 + 耗时 + 命中数 / 输出规模 + 关键标识（首个结果、关键参数）。
+
+```python
+from time import perf_counter
+
+started = perf_counter()
+hits = run_stage(...)
+elapsed_ms = int((perf_counter() - started) * 1000)
+logger.info(
+    "stage={} elapsed_ms={} count={} top={!r}",
+    stage_name, elapsed_ms, len(hits), hits[0].name if hits else None,
+)
+```
+
+- 字段名按项目惯例选择（英文 / 中文均可），但**同项目内固定一致**。
+- 只在以下位置打：阶段边界、外部调用边界、终止 / 降级路径、异常路径。
+- 不为每行代码打日志；不要重复打同一错误。
+- 多意图 / 并行分支时给日志加 `label`（如 `intent_1/3`）便于切片定位。
+
 ## 日志级别
 
 | 级别 | 用途 |

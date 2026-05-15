@@ -19,16 +19,29 @@
 | 非幂等写操作的任何失败 | 否（除非有幂等键） |
 | 业务级不可恢复错误 | 否 |
 
-## 重试（统一 stamina）
+## 重试是例外，不是默认
+
+**默认 fail fast，业务路径不要包重试。** 上重试需要同时满足：
+
+1. 外部 HTTP / 网络 / DB 瞬时失败，业务对短暂失败可容忍；
+2. 操作幂等（写操作必须先有幂等键 / 唯一约束）；
+3. 不在 LLM 同步调用路径里（instructor 自带 schema 重试，不要叠加）。
+
+不满足以上条件就让异常向上抛，由边界层转译。不要为了"健壮"在中间层兜底重试。
+
+## 用 stamina（仅例外路径）
+
+确认需要重试时统一用 stamina：
 
 - 默认参数：`attempts=3, wait_initial=1s, wait_max=10s, wait_jitter=1s, timeout=30s`。
 - 用 `@stamina.retry(on=...)` 显式声明可重试异常类，不要 `on=Exception`。
 - 总耗时上限通过 `timeout` 强约束，避免无限退避。
-- 写操作必须先有幂等键 / 唯一约束才能重试。
 
 ## Gotchas
 
-- 不要散落 `tenacity` 装饰器；统一 stamina。
+- 不要把重试当默认健壮性手段；多数业务函数不该有重试装饰器。
+- 不要散落 `tenacity` 装饰器；要重试就统一 stamina。
 - 不要捕获 `Exception` 后再 `raise`；要么具体类型，要么转译为边界异常。
 - 不要重试鉴权失败 / 限流以外的 4xx。
 - 不要在重试装饰器外再加 try/except 吞异常。
+- 不要在 instructor 调用外再包一层 stamina；schema 重试已经在 instructor 内。

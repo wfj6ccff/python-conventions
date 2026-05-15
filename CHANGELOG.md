@@ -2,6 +2,27 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 
+## [0.1.2] - 2026-05-15
+
+### Changed
+
+- **重试默认 fail fast**：把 stamina 从默认推荐降级为例外路径。`error-handling.md` / `retry-state.md` / `failure-handling.md` / `llm-stack.md` / `stack.md` / `worker/SKILL.md` / `README.md` 同步修订。LLM 同步路径不外加重试（instructor 自带 schema 重试）。
+
+### Added
+
+- `project/references/type-boundaries.md`：Keyword-only 参数（`*` 强制关键字传参）。
+- `project/references/code-design.md`：类的使用边界（数据模型 / 运行时容器，不写业务类）；模块按阶段切，不按层切。
+- `project/references/logging.md`：阶段耗时日志模板（`perf_counter` + `elapsed_ms`，每阶段一条）。
+- `project/references/config-secrets.md`：`@lru_cache get_settings()` + `resolved_xxx` property 收敛多候选 key fallback。
+- `api/references/async-lifespan.md`：Runtime 注入模式（`@dataclass` 容器 + lifespan + `app.state.runtime`）。
+- `llm/references/structured-output.md`：双层模型（`XxxLLMOutput` / `XxxResponse`）；`@model_validator(mode="after")` 做交叉字段一致性。
+- `llm/references/prompt-design.md`：prompt 文件组织（顶层常量 + `build_xxx_user_prompt` builder）。
+- `llm/references/rag-cost-eval.md`：混合检索（dense + sparse RRF + 并行召回）；Milvus `in` filter 用 `json.dumps` 安全转义。
+
+### 来源
+
+基于真实 LLM/RAG 项目（FastAPI + instructor + Milvus 混合检索）抽取的通用编码习惯。所有规则跨项目复用，不绑定特定业务。
+
 ## [0.1.1] - 2026-05-15
 
 ### Removed

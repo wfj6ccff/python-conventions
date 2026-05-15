@@ -21,7 +21,7 @@
 |---|---|
 | 运行 | Python ≥ 3.11 / `uv` |
 | 边界 | Pydantic v2 / pydantic-settings |
-| HTTP | httpx + stamina |
+| HTTP | httpx（默认 fail fast；仅幂等瞬态错误用 stamina） |
 | 日志 | loguru |
 | 时间 | aware datetime + UTC |
 | API | FastAPI + SQLAlchemy 2.x |

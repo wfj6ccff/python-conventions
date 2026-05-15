@@ -6,6 +6,44 @@
 - 命名 `*_PROMPT`（系统 / 主指令）、`*_EXAMPLES`（few-shot）、`*_SCHEMA_HINT`（仅当 instructor 不能覆盖时）。
 - 一个 use case 一个 `prompts.py` 或 `prompts/<usecase>.py`，不跨业务复用。
 
+## 文件组织
+
+单文件 `prompts.py` 默认结构：
+
+- 顶层常量 `XXX_SYSTEM_PROMPT = """..."""`，多行；规则编号 1./2./3.，示例放末尾。
+- 用户消息用函数构造 `build_xxx_user_prompt(...)`，签名带类型，返回字符串。
+- 业务模块只 import 常量和 builder，**不在业务函数里拼 prompt 字符串**。
+- 条件分支多到难维护再升 jinja2，不要为 1–2 个变量直接上 jinja2。
+
+```python
+# prompts.py
+ANALYSIS_SYSTEM_PROMPT = """你是检索入口分析器。
+
+规则：
+1. ...
+2. ...
+
+示例：
+用户请求："..."
+正确拆解：...
+"""
+
+def build_analysis_user_prompt(query: str) -> str:
+    return f"用户请求：\n{query}\n"
+```
+
+业务侧：
+
+```python
+from app.prompts import ANALYSIS_SYSTEM_PROMPT, build_analysis_user_prompt
+
+result = call_structured_llm(
+    system_prompt=ANALYSIS_SYSTEM_PROMPT,
+    user_prompt=build_analysis_user_prompt(query),
+    response_model=AnalysisLLMOutput,
+)
+```
+
 ## 系统 / 用户边界
 
 - system 写角色、约束、输出格式硬要求。

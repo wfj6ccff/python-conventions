@@ -19,7 +19,7 @@
 | 配置 / 密钥 | pydantic-settings + .env，SecretStr |
 | 边界校验 | Pydantic v2 |
 | HTTP 客户端 | httpx |
-| HTTP 重试 | stamina |
+| HTTP 重试 | 默认 fail fast；仅瞬态错误且操作幂等时用 stamina |
 | JSON | stdlib `json`；orjson 仅在性能敏感时启用 |
 | 日志 | loguru |
 | 路径 | pathlib.Path |
@@ -52,7 +52,7 @@
 | `print` 调试 | `loguru.logger.debug/info` |
 | 裸 `dict` 跨模块边界 | Pydantic BaseModel |
 | Celery（除非确证需要） | APScheduler / RQ / arq |
-| `tenacity` 散落 retry 装饰器 | `stamina` |
+| `tenacity` 散落 retry 装饰器 | 默认 fail fast；确需重试时统一 `stamina` |
 | langchain / llamaindex / haystack / guidance | 原生 SDK + instructor |
 | `requirements.txt` 手维护 | `uv` + `pyproject.toml` |
 | `model.dict()` / `model.json()`（v1 写法） | `model.model_dump()` / `model.model_dump_json()` |

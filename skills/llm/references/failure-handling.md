@@ -1,6 +1,6 @@
 # LLM failure handling
 
-重试统一使用 stamina；显式列可重试异常。
+LLM 同步路径**默认不外加重试**：instructor 自带 schema 重试，外层叠加只会放大延迟和成本。仅在 timeout / 限流 / 5xx 这类纯瞬态错误确实需要兜底时，再用 stamina，并显式列可重试异常。
 
 ## 错误分类
 

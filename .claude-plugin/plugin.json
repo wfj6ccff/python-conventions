@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "python-conventions",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "个人 Python 开发偏好：栈选择、LLM/API/数据/Worker/CLI 规范。基于 Perplexity 风格路由：6 个自包含 skill，按用户意图条件加载。",
   "author": {
     "name": "wfj6ccff",

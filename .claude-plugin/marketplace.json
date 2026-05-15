@@ -11,7 +11,7 @@
       "name": "python-conventions",
       "source": "./",
       "description": "个人 Python 开发偏好：栈选择、LLM/API/数据/Worker/CLI 规范",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "author": {
         "name": "wfj6ccff",
         "url": "https://github.com/wfj6ccff"

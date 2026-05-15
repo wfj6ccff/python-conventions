@@ -35,6 +35,29 @@
 - 顺序：召回 top_k → rerank → 取 top_n。
 - 命中分数和 rerank 分数都要可观测。
 
+## 混合检索（dense + sparse）
+
+只有项目确实需要混合召回时再读这一节；纯 dense 检索跳过。
+
+- 两路召回是独立 I/O，用 `ThreadPoolExecutor(max_workers=2)` 并行；不要串行。
+- RRF 融合：`score = 1 / (k + rank)`，`k=60` 是常用起点；融合后按 `(rrf_score, matched_by==both, min_rank)` 排序。
+- 在融合之后、rerank 之前显式截断到 `fusion_top_k`，不要把全部召回结果丢给 rerank API（贵 + 慢）。
+- 召回阶段尽早过滤业务字段（如 `status == 1`、租户 ID），不要 rerank 后再过滤。
+
+### Milvus filter 安全转义
+
+`in [...]` filter 拼 list 不能直接 f-string——值里有引号 / 中文 / 特殊字符会炸或被注入。统一用 `json.dumps`：
+
+```python
+import json
+
+def build_in_expr(field: str, values: list[str]) -> str:
+    if not values:
+        raise ValueError("values 不能为空。")
+    values_expr = ", ".join(json.dumps(v, ensure_ascii=False) for v in values)
+    return f"{field} in [{values_expr}]"
+```
+
 ## 成本与延迟
 
 - 只在用户关心成本、延迟或回归时深入做 token、吞吐或评估设计。

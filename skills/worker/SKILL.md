@@ -13,7 +13,8 @@ description: Load when user implements Python background jobs, scheduled tasks, 
 - 不建议 Celery；复杂到像是需要 Celery 时先重新评估系统拆分。
 - 任务函数必须幂等。
 - 参数只传可序列化小对象，不传 DB session、客户端或大对象。
-- 重试默认 stamina：3 次，退避 1/2/4s，总耗时 ≤30s；按业务调整需明示。
+- 默认 fail fast，让队列层（RQ/arq/APScheduler）按其策略处理失败。
+- 仅瞬态错误且操作幂等时才在任务函数里加 stamina：3 次，退避 1/2/4s，总耗时 ≤30s。
 - 非幂等操作不能随便自动重试。
 - 多实例定时任务要防重复执行（分布式锁带 TTL 和唯一 token）。
 
