@@ -50,7 +50,6 @@
 ## Eval
 
 - 重要流程保留最小人工验收样例（pytest fixture）。
-- 需要分数化用 `ragas` 或 `langfuse` 内置 eval。
 - 不为了 eval 引入 langchain。
 
 ## Gotchas

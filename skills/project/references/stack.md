@@ -53,7 +53,7 @@
 | 裸 `dict` 跨模块边界 | Pydantic BaseModel |
 | Celery（除非确证需要） | APScheduler / RQ / arq |
 | `tenacity` 散落 retry 装饰器 | `stamina` |
-| langchain / llamaindex / haystack / guidance | 原生 SDK + instructor；可选 pydantic-ai |
+| langchain / llamaindex / haystack / guidance | 原生 SDK + instructor |
 | `requirements.txt` 手维护 | `uv` + `pyproject.toml` |
 | `model.dict()` / `model.json()`（v1 写法） | `model.model_dump()` / `model.model_dump_json()` |
 

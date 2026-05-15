@@ -59,7 +59,6 @@ LLM 项目的第三方包白名单。
 ## Agent 与工具调用
 
 - 优先原生：instructor + 自定义工具循环（while + tool dispatch）。
-- 需要框架级类型安全、工具注册、依赖注入时：`pydantic-ai`（轻量、Pydantic 团队、与 logfire 集成）。
 - **禁用**：langchain、llamaindex、haystack、guidance。
 
 ## MCP
@@ -70,9 +69,6 @@ LLM 项目的第三方包白名单。
 
 ## 观测
 
-- 不强制，但建议二选一：
-  - `logfire`：Pydantic 团队，原生集成 FastAPI / loguru / pydantic-ai。
-  - `langfuse`：自部署友好，trace + eval 一体。
 - 默认 loguru 已足够日常调试；只有需要 trace 树 / token 成本聚合 / 评估时再引入。
 
 ## 缓存
@@ -84,7 +80,6 @@ LLM 项目的第三方包白名单。
 ## 评估
 
 - 轻量样例：人工 fixture + pytest。
-- 需要分数化：`ragas`（RAG 场景）或 `langfuse` 内置 eval。
 - 不要为评估引入 langchain。
 
 ## 明确禁用
